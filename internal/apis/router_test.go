@@ -56,8 +56,9 @@ func TestRouter_FiltersByFullKey(t *testing.T) {
 	ch := make(chan *dbus.Signal, 4)
 	defer registerSubscriber(k("/a", "i.f", "M1"), ch)()
 
-	drive(t,
-		&dbus.Signal{Path: "/a", Name: "i.f.M2"},   // wrong member
+	drive(
+		t,
+		&dbus.Signal{Path: "/a", Name: "i.f.M2"}, // wrong member
 		&dbus.Signal{Path: "/a", Name: "other.M1"}, // wrong interface
 		&dbus.Signal{Path: "/b", Name: "i.f.M1"},   // wrong path
 		&dbus.Signal{Path: "/a", Name: "i.f.M1"},   // match
@@ -108,7 +109,8 @@ func TestRouter_SlowSubscriberDropsInsteadOfBlocking(t *testing.T) {
 	defer registerSubscriber(k("/p", "i.f", "M"), slow)()
 	defer registerSubscriber(k("/p", "i.f", "M"), fast)()
 
-	drive(t,
+	drive(
+		t,
 		&dbus.Signal{Path: "/p", Name: "i.f.M"},
 		&dbus.Signal{Path: "/p", Name: "i.f.M"},
 		&dbus.Signal{Path: "/p", Name: "i.f.M"},

@@ -1,10 +1,10 @@
 package location
 
 import (
+	"github.com/alexballas/portal/internal/apis"
+	"github.com/alexballas/portal/internal/convert"
+	"github.com/alexballas/portal/internal/session"
 	"github.com/godbus/dbus/v5"
-	"github.com/rymdport/portal/internal/apis"
-	"github.com/rymdport/portal/internal/convert"
-	"github.com/rymdport/portal/internal/session"
 )
 
 const createSessionCallName = interfaceName + ".CreateSession"

@@ -1,11 +1,19 @@
-[![Go API Reference](https://img.shields.io/badge/go-documentation-blue.svg?style=flat)](https://pkg.go.dev/github.com/rymdport/portal)
-[![Tests](https://github.com/rymdport/portal/actions/workflows/tests.yml/badge.svg)](https://github.com/rymdport/portal/actions/workflows/tests.yml)
-[![Analysis](https://github.com/rymdport/portal/actions/workflows/analysis.yml/badge.svg)](https://github.com/rymdport/portal/actions/workflows/analysis.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/rymdport/portal)](https://goreportcard.com/report/github.com/rymdport/portal)
+[![Go API Reference](https://img.shields.io/badge/go-documentation-blue.svg?style=flat)](https://pkg.go.dev/github.com/alexballas/portal)
+[![Tests](https://github.com/alexballas/portal/actions/workflows/tests.yml/badge.svg)](https://github.com/alexballas/portal/actions/workflows/tests.yml)
+[![Analysis](https://github.com/alexballas/portal/actions/workflows/analysis.yml/badge.svg)](https://github.com/alexballas/portal/actions/workflows/analysis.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/alexballas/portal)](https://goreportcard.com/report/github.com/alexballas/portal)
 
 # Portal
 
 Portal is a Go module providing developer friendly functions for accessing the [XDG Desktop Protocol](https://flatpak.github.io/xdg-desktop-portal/) D-Bus API. The goal of this project is to be toolkit agnostic and allow using the portals without needing to access [libportal](https://github.com/flatpak/libportal) through CGo.
+
+This repository is a maintained fork of [rymdport/portal](https://github.com/rymdport/portal). It provides predictable releases for [Refyne](https://github.com/alexballas/refyne) and [xfilepicker](https://github.com/alexballas/xfilepicker), while keeping changes suitable for contributing back upstream whenever possible.
+
+## Maintenance scope
+
+The actively supported surface is the shared request and signal machinery plus the `filechooser`, `notification`, `openuri`, `settings`, and `settings/appearance` packages. Other packages are retained for upstream compatibility and accept fixes on a best-effort basis.
+
+The fork follows upstream changes selectively. Releases use this repository's module path and are tested before Refyne or xfilepicker adopt them.
 
 Using the portals allow applications to request information from the user even when running inside a sandbox like Flatpak. As such, it is possible to open file dialogs, open links in the browser, send notifications and much more in a way that integrates well with the desktop environment. This also avoids needing to open up permissions in the sandbox.
 
@@ -13,7 +21,7 @@ Using the portals allow applications to request information from the user even w
 
 The api of this Go module is designed to closely follow the structure naming of the upstream APIs. This means, in practice, that each D-Bus interface is implemented as its own package here. However, care is taken to be developer friendly and integrate seamlessly with native Go types.
 
-- Documentation for this module and all of its packages can be found on pkg.go.dev: https://pkg.go.dev/github.com/rymdport/portal
+- Documentation for this module and all of its packages can be found on pkg.go.dev: https://pkg.go.dev/github.com/alexballas/portal
 - Documentation for the D-Bus protocol of the portals: https://flatpak.github.io/xdg-desktop-portal/docs/api-reference.html
 
 
@@ -53,7 +61,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/rymdport/portal/filechooser"
+	"github.com/alexballas/portal/filechooser"
 )
 
 func main() {

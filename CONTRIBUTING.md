@@ -7,7 +7,7 @@ There are various ways to contribute; everything is not about contributing code.
 If you've found an issue with the application, please report it to help us fix it as soon as possible.
 When reporting a bug, please follow the guidelines below:
 
-1. Check the [issue list](https://github.com/rymdport/portal/issues) to see if it's already been reported. If so, update the existing issue with any additional information that you have.
+1. Check the [issue list](https://github.com/alexballas/portal/issues) to see if it's already been reported. If so, update the existing issue with any additional information that you have.
 2. If not, then create a new issue using the issue template for reporting bugs.
 3. Stay involved in the conversation on the issue and answer any questions that might arise. More information can sometimes be necessary.
 

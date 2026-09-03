@@ -7,7 +7,7 @@ body:
     label: Checklist
     description: Please make sure you have read the following.
     options:
-      - label: I have searched the [issue tracker](https://github.com/rymdport/portal/issues) for open issues that relate to the same feature, before opening a new one.
+      - label: I have searched the [issue tracker](https://github.com/alexballas/portal/issues) for open issues that relate to the same feature, before opening a new one.
         required: true
       - label: This issue only relates to a single feature. I will open new issues for any other features.
         required: true        

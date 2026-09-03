@@ -3,7 +3,7 @@ package wallpaper
 import (
 	"context"
 
-	"github.com/rymdport/portal/internal/convert"
+	"github.com/alexballas/portal/internal/convert"
 )
 
 // SetWallpaperFile sets wallpaper specified as a local file.

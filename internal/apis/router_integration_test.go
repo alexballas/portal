@@ -19,7 +19,7 @@ func TestSubscribeSignal_EndToEnd(t *testing.T) {
 	}
 
 	const (
-		path   = dbus.ObjectPath("/rymdport/portal/test/router")
+		path   = dbus.ObjectPath("/alexballas/portal/test/router")
 		iface  = "com.rymdport.PortalTest.Router"
 		member = "Hello"
 	)

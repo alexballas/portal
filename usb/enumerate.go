@@ -1,8 +1,8 @@
 package usb
 
 import (
+	"github.com/alexballas/portal/internal/apis"
 	"github.com/godbus/dbus/v5"
-	"github.com/rymdport/portal/internal/apis"
 )
 
 const enumerateDevicesCallName = interfaceName + ".EnumerateDevices"

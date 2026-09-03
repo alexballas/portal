@@ -1,7 +1,7 @@
 package networkmonitor
 
 import (
-	"github.com/rymdport/portal/internal/apis"
+	"github.com/alexballas/portal/internal/apis"
 )
 
 const (

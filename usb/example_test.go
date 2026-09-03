@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/rymdport/portal/usb"
+	"github.com/alexballas/portal/usb"
 )
 
 func ExampleEnumerateDevices() {

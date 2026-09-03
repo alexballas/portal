@@ -8,9 +8,9 @@ import (
 	"encoding/hex"
 	"strings"
 
+	"github.com/alexballas/portal"
+	"github.com/alexballas/portal/internal/apis"
 	"github.com/godbus/dbus/v5"
-	"github.com/rymdport/portal"
-	"github.com/rymdport/portal/internal/apis"
 )
 
 // https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Request.html
@@ -46,7 +46,7 @@ func Close(path dbus.ObjectPath) error {
 func generateToken() string {
 	var b [16]byte
 	if _, err := rand.Read(b[:]); err != nil {
-		panic("rymdport/portal: crypto/rand failed: " + err.Error())
+		panic("alexballas/portal: crypto/rand failed: " + err.Error())
 	}
 	return "rymdportal" + hex.EncodeToString(b[:])
 }

@@ -5,8 +5,8 @@ import (
 
 	"github.com/godbus/dbus/v5"
 
-	"github.com/rymdport/portal/internal/convert"
-	"github.com/rymdport/portal/internal/request"
+	"github.com/alexballas/portal/internal/convert"
+	"github.com/alexballas/portal/internal/request"
 )
 
 const acquireDevicesCallName = interfaceName + ".AcquireDevices"

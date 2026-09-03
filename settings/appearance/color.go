@@ -5,7 +5,7 @@ import (
 	"image/color"
 	"math"
 
-	"github.com/rymdport/portal/settings"
+	"github.com/alexballas/portal/settings"
 )
 
 // ErrNotSet indicates that the value is not set.

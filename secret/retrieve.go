@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/alexballas/portal/internal/convert"
+	"github.com/alexballas/portal/internal/request"
 	"github.com/godbus/dbus/v5"
-	"github.com/rymdport/portal/internal/convert"
-	"github.com/rymdport/portal/internal/request"
 )
 
 const retrieveSecretCallName = interfaceName + ".RetrieveSecret"
@@ -61,7 +61,7 @@ func RetrieveSecretContext(ctx context.Context, fd uintptr, options *RetrieveOpt
 		value, _ := token.Value().(string)
 		return value, nil
 	} else if len(resp.Results) != 0 {
-		fmt.Println("Please contribute this information to rymdport/portal: ", resp.Results)
+		fmt.Println("Please contribute this information to alexballas/portal: ", resp.Results)
 	}
 
 	return "", nil

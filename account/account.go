@@ -2,7 +2,7 @@
 package account
 
 import (
-	"github.com/rymdport/portal/internal/apis"
+	"github.com/alexballas/portal/internal/apis"
 )
 
 const interfaceName = apis.CallBaseName + ".Account"

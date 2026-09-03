@@ -1,6 +1,6 @@
 contact_links:
   - name: Open a discussion
-    url: https://github.com/rymdport/portal/discussions
+    url: https://github.com/alexballas/portal/discussions
     about: Feel free to open a discussion for questions, feedback or anything else that you want to share.
 
 blank_issues_enabled: false

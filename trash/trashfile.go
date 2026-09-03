@@ -1,8 +1,8 @@
 package trash
 
 import (
-	"github.com/rymdport/portal/internal/apis"
-	"github.com/rymdport/portal/internal/convert"
+	"github.com/alexballas/portal/internal/apis"
+	"github.com/alexballas/portal/internal/convert"
 )
 
 const trashFileCallName = interfaceName + ".TrashFile"

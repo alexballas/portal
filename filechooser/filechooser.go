@@ -8,8 +8,8 @@ import (
 	"context"
 	"net/url"
 
-	"github.com/rymdport/portal/internal/apis"
-	"github.com/rymdport/portal/internal/request"
+	"github.com/alexballas/portal/internal/apis"
+	"github.com/alexballas/portal/internal/request"
 )
 
 const interfaceName = apis.CallBaseName + ".FileChooser"

@@ -1,4 +1,4 @@
-module github.com/rymdport/portal
+module github.com/alexballas/portal
 
 go 1.19
 

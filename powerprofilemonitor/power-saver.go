@@ -1,7 +1,7 @@
 package powerprofilemonitor
 
 import (
-	"github.com/rymdport/portal/internal/apis"
+	"github.com/alexballas/portal/internal/apis"
 )
 
 // GetPowerSaverEnabled reports whether “Power Saver” mode is enabled on the system.

@@ -3,7 +3,7 @@ package usb
 import (
 	"github.com/godbus/dbus/v5"
 
-	"github.com/rymdport/portal/internal/apis"
+	"github.com/alexballas/portal/internal/apis"
 )
 
 const releaseDevicesCallName = interfaceName + ".ReleaseDevices"

@@ -1,7 +1,7 @@
 package memorymonitor
 
 import (
-	"github.com/rymdport/portal/internal/apis"
+	"github.com/alexballas/portal/internal/apis"
 )
 
 // LowMemoryWarning contains the information given in such a warning.

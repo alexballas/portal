@@ -1,9 +1,9 @@
 package background
 
 import (
+	"github.com/alexballas/portal/internal/apis"
+	"github.com/alexballas/portal/internal/convert"
 	"github.com/godbus/dbus/v5"
-	"github.com/rymdport/portal/internal/apis"
-	"github.com/rymdport/portal/internal/convert"
 )
 
 const statusCallName = interfaceName + ".SetStatus"
