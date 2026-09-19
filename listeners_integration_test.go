@@ -59,25 +59,7 @@ func TestListenerDeliveryAndCancellation(t *testing.T) {
 					}
 				})
 			}()
-			ticker := time.NewTicker(10 * time.Millisecond)
-			defer ticker.Stop()
-			timeout := time.NewTimer(3 * time.Second)
-			defer timeout.Stop()
-		wait:
-			for {
-				select {
-				case <-ticker.C:
-					if err := conn.Emit("/org/freedesktop/portal/desktop", tc.signal, tc.body...); err != nil {
-						t.Fatal(err)
-					}
-				case <-received:
-					break wait
-				case err := <-done:
-					t.Fatalf("listener exited early: %v", err)
-				case <-timeout.C:
-					t.Fatal("signal delivery timed out")
-				}
-			}
+			waitForListenerSignal(t, conn, tc.signal, tc.body, received, done)
 			cancel()
 			select {
 			case err := <-done:
@@ -88,5 +70,28 @@ func TestListenerDeliveryAndCancellation(t *testing.T) {
 				t.Fatal("cancellation did not stop listener")
 			}
 		})
+	}
+}
+
+// Repeat emission until the asynchronous listener has subscribed.
+func waitForListenerSignal(t *testing.T, conn *dbus.Conn, signal string, body []any, received <-chan struct{}, done <-chan error) {
+	t.Helper()
+	ticker := time.NewTicker(10 * time.Millisecond)
+	defer ticker.Stop()
+	timeout := time.NewTimer(3 * time.Second)
+	defer timeout.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			if err := conn.Emit("/org/freedesktop/portal/desktop", signal, body...); err != nil {
+				t.Fatal(err)
+			}
+		case <-received:
+			return
+		case err := <-done:
+			t.Fatalf("listener exited early: %v", err)
+		case <-timeout.C:
+			t.Fatal("signal delivery timed out")
+		}
 	}
 }
