@@ -3,6 +3,12 @@
 The version of this module's API is still in a `v0.X.Y` state and is subject to change in the future.
 A release with breaking changes will increment X while Y will be incremented when there are minor bug or feature improvements.
 
+## Unreleased
+
+- Add cancellable `OnSignalLowMemoryWarningContext`, `OnSignalChangedContext`, and `OnSignalSettingChangedContext` listeners. Cancellation releases their signal subscriptions and D-Bus match rules. Deprecate the existing listeners while preserving their signatures and behavior.
+- Return request-token generation errors instead of panicking.
+- Initialize the shared signal router with `sync.Once`, preserving retries after a failed D-Bus connection and Go 1.19 compatibility.
+
 ## v0.5.0 (2026-09-04)
 
 - Publish the maintained fork under the `github.com/alexballas/portal` module path.

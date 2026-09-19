@@ -1,6 +1,8 @@
 package memorymonitor
 
 import (
+	"context"
+
 	"github.com/alexballas/portal/internal/apis"
 )
 
@@ -16,24 +18,50 @@ type LowMemoryWarning struct {
 //
 // This function blocks for the lifetime of the subscription; the
 // subscription is released only when the process exits.
+//
+// Deprecated: Use OnSignalLowMemoryWarningContext to allow cancellation.
 func OnSignalLowMemoryWarning(callback func(warning LowMemoryWarning)) error {
-	signal, _, err := apis.ListenOnSignal(interfaceName, "LowMemoryWarning")
+	return OnSignalLowMemoryWarningContext(context.Background(), callback)
+}
+
+// OnSignalLowMemoryWarningContext listens until ctx is cancelled and releases the subscription.
+// It returns ctx.Err() on cancellation. Callbacks run synchronously and must
+// return before cancellation can finish. A nil context means context.Background().
+func OnSignalLowMemoryWarningContext(ctx context.Context, callback func(warning LowMemoryWarning)) error {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+	signal, cleanup, err := apis.ListenOnSignal(interfaceName, "LowMemoryWarning")
 	if err != nil {
 		return err
 	}
 
-	for sig := range signal {
-		if len(sig.Body) == 0 {
-			continue
-		}
+	defer cleanup()
 
-		level, ok := sig.Body[0].(byte)
-		if !ok {
-			continue
+	for {
+		if err := ctx.Err(); err != nil {
+			return err
 		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case sig, ok := <-signal:
+			if !ok {
+				return nil
+			}
+			if len(sig.Body) == 0 {
+				continue
+			}
 
-		callback(LowMemoryWarning{Level: level})
+			level, ok := sig.Body[0].(byte)
+			if !ok {
+				continue
+			}
+
+			callback(LowMemoryWarning{Level: level})
+		}
 	}
-
-	return nil
 }

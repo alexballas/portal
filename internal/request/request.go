@@ -6,6 +6,8 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/hex"
+	"fmt"
+	"io"
 	"strings"
 
 	"github.com/alexballas/portal"
@@ -43,12 +45,12 @@ func Close(path dbus.ObjectPath) error {
 	return apis.CallOnObject(path, closeCallName)
 }
 
-func generateToken() string {
+func generateToken() (string, error) {
 	var b [16]byte
-	if _, err := rand.Read(b[:]); err != nil {
-		panic("alexballas/portal: crypto/rand failed: " + err.Error())
+	if _, err := io.ReadFull(rand.Reader, b[:]); err != nil {
+		return "", fmt.Errorf("alexballas/portal: generate request token: %w", err)
 	}
-	return "rymdportal" + hex.EncodeToString(b[:])
+	return "rymdportal" + hex.EncodeToString(b[:]), nil
 }
 
 // buildRequestPath is the Request path the portal will use for a call
@@ -95,7 +97,10 @@ func SendRequest(
 	}
 
 	if token == "" {
-		token = generateToken()
+		token, err = generateToken()
+		if err != nil {
+			return Response{Status: Ended}, err
+		}
 	}
 	expected := expectedHandle(conn, token)
 

@@ -17,30 +17,24 @@ type routerKey struct {
 }
 
 var (
-	routerInitMu sync.Mutex
-	routerReady  bool
+	routerOnce sync.Once
 
 	routerMu   sync.Mutex
 	routerSubs = map[routerKey][]chan<- *dbus.Signal{}
 )
 
 func ensureRouter() error {
-	routerInitMu.Lock()
-	defer routerInitMu.Unlock()
-	if routerReady {
-		return nil
-	}
-
+	// Connect before Once so a failed connection can be retried.
 	conn, err := dbus.SessionBus()
 	if err != nil {
 		return err
 	}
 
-	all := make(chan *dbus.Signal, 256)
-	conn.Signal(all)
-	go routerLoop(all)
-
-	routerReady = true
+	routerOnce.Do(func() {
+		all := make(chan *dbus.Signal, 256)
+		conn.Signal(all)
+		go routerLoop(all)
+	})
 	return nil
 }
 

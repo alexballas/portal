@@ -2,6 +2,7 @@ package request
 
 import (
 	"context"
+	"crypto/rand"
 	"errors"
 	"regexp"
 	"testing"
@@ -39,7 +40,11 @@ func TestBuildRequestPath(t *testing.T) {
 func TestGenerateToken_DBusPathSafe(t *testing.T) {
 	valid := regexp.MustCompile(`^[A-Za-z0-9_]+$`)
 	for i := 0; i < 20; i++ {
-		if tok := generateToken(); !valid.MatchString(tok) {
+		tok, err := generateToken()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !valid.MatchString(tok) {
 			t.Fatalf("invalid token: %q", tok)
 		}
 	}
@@ -91,5 +96,21 @@ func TestSendRequest_ContextAlreadyDone(t *testing.T) {
 				t.Fatal("buildArgs must not run when ctx is already done")
 			}
 		})
+	}
+}
+
+// A failing entropy source must return an error instead of panicking.
+type failingReader struct{ err error }
+
+func (r failingReader) Read([]byte) (int, error) { return 0, r.err }
+
+func TestGenerateTokenEntropyFailure(t *testing.T) {
+	original := rand.Reader
+	t.Cleanup(func() { rand.Reader = original })
+	want := errors.New("entropy unavailable")
+	rand.Reader = failingReader{want}
+	token, err := generateToken()
+	if token != "" || !errors.Is(err, want) {
+		t.Fatalf("got (%q, %v), want empty token and wrapped entropy error", token, err)
 	}
 }
